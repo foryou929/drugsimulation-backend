@@ -90,3 +90,73 @@ exports.update = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+const { google } = require('googleapis');
+
+// Configure OAuth credentials
+const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
+const clientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+const redirectUri = process.env.GOOGLE_OAUTH_REDIRECT_URI;
+const scopes = ['profile', 'email']; // Specify the required scopes
+
+// Create an OAuth2 client
+const oauth2Client = new google.auth.OAuth2(
+    clientId,
+    clientSecret,
+    redirectUri
+);
+
+exports.loginWithGoogle = (req, res) => {
+    const authUrl = oauth2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: scopes,
+    });
+    res.redirect(authUrl);
+};
+
+exports.authGoogle = async (req, res) => {
+    const code = req.query.code;
+
+    try {
+        // Exchange authorization code for tokens
+        const { tokens } = await oauth2Client.getToken(code);
+        const accessToken = tokens.access_token;
+        const refreshToken = tokens.refresh_token;
+
+        // Set the access token and refresh token on the OAuth2 client
+        oauth2Client.setCredentials({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+        });
+
+        // Use the access token to make API requests
+        const oauth2 = google.oauth2({
+            auth: oauth2Client,
+            version: 'v2',
+        });
+        const { data } = await oauth2.userinfo.get();
+
+        // Perform any necessary actions with the user data
+        const user = await User.findOne({ email: data.email });
+
+        if (!user) {
+            res.status(401).json({ message: 'user_not_exist' })
+            return
+        }
+
+        const payload = {
+            id: user._id,
+            userId: user.email,
+            avatar: user.avatar,
+        };
+
+        jwt.sign(payload, config.secret, {}, (err, token) => {
+            if (err)
+                throw err
+            res.redirect('/login?token=' + token);
+        });
+    } catch (error) {
+        console.error('Error retrieving access token:', error);
+        res.status(500).send('Error retrieving access token');
+    }
+}

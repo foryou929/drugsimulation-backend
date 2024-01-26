@@ -11,4 +11,7 @@ module.exports = (app) => {
     app.post('/api/register', userCtr.register)
     app.get('/api/login', requireAuth, userCtr.loginWithToken)
     app.put('/api/profile', requireAuth, userCtr.update)
+    
+    app.get('/api/loginWithGoogle', userCtr.loginWithGoogle)
+    app.get('/oauth2callback', userCtr.authGoogle);
 }
