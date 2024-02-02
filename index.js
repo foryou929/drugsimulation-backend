@@ -37,14 +37,6 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-https
-    .createServer(
-        {
-            key: fs.readFileSync("sslcert/private.key"),
-            cert: fs.readFileSync("sslcert/certificate.crt"),
-        },
-        app
-    )
-    .listen(process.env.PORT, () => {
-        console.log(`Serever is runing at port ${process.env.PORT}`);
-    });
+app.listen(process.env.PORT, () => {
+    console.log(`Serever is runing at port ${process.env.PORT}`);
+});

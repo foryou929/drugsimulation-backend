@@ -23,6 +23,10 @@ const UserSchema = Schema(
             type: String,
             default: '',
         },
+        isAdmin: {
+            type: Boolean,
+            default: false,
+        }
     },
     {
         collection: process.env.DB_COLLECTION_PREFIX + 'users',
