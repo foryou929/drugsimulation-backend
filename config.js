@@ -6,8 +6,9 @@ module.exports = {
     db_url: 'mongodb://127.0.0.1:27017/doctor',
     
     default_admin: {
-        email: 'admin@jsonapi.com',
+        email: 'Eternel.kk@gmail.com',
         name: 'Administrator',
         pwd: md5('12345678'),
+        isAdmin: true,
     },
 }
