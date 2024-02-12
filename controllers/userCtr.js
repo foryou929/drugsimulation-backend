@@ -140,7 +140,7 @@ exports.authGoogle = async (req, res) => {
         const user = await User.findOne({ email: data.email });
 
         if (!user) {
-            res.redirect(process.env.REACT_APP_URL + '/login?status=user_not_exist');
+            res.redirect('/login?status=user_not_exist');
             return
         }
 
@@ -153,7 +153,7 @@ exports.authGoogle = async (req, res) => {
         jwt.sign(payload, config.secret, {}, (err, token) => {
             if (err)
                 throw err
-            res.redirect(process.env.REACT_APP_URL + '/login?status=success&token=' + token);
+            res.redirect('/login?status=success&token=' + token);
         });
     } catch (error) {
         console.error('Error retrieving access token:', error);
