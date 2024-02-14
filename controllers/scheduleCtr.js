@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const { model } = require('mongoose')
 
-const ScheduleModel = mongoose.model('Schedule')
+const ScheduleModel = model('Schedule')
 
 exports.create = async (req, res) => {
     try {
