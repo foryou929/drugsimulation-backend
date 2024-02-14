@@ -29,22 +29,22 @@ const PKS_Schema = Schema(
         remimazolam: [{
             mode: Number,
             time: Number,
-            amount: Number
+            value: Number
         }],
         dexmedetomidine: [{
             mode: Number,
             time: Number,
-            amount: Number
+            value: Number
         }],
         remifentanil: [{
             mode: Number,
             time: Number,
-            amount: Number
+            value: Number
         }],
         fentanyl: [{
             mode: Number,
             time: Number,
-            amount: Number
+            value: Number
         }],
     },
     {
