@@ -32,10 +32,10 @@ glob.sync('./routes/**/*.js').forEach(router => {
     require('./' + router)(app)
 })
 
-app.use(express.static(path.join(__dirname, "build")));
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.use(express.static(path.join(__dirname, "build")));
+// app.get("*", function (req, res) {
+//     res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 app.listen(process.env.PORT, () => {
     console.log(`Serever is runing at port ${process.env.PORT}`);
