@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const File = mongoose.model('File')
+const { model } = require('mongoose')
+const File = model('File')
 const contentDisposition = require("content-disposition");
 const fs = require('fs')
 
