@@ -6,6 +6,10 @@ const PKS_Schema = Schema(
             type: String,
             required: true,
         },
+        user : {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
         height: {
             type: Number,
             required: true,
@@ -19,7 +23,7 @@ const PKS_Schema = Schema(
             required: true,
         },
         gendor: {
-            type: Boolean,
+            type: Number,
             required: true,
         },
         ASA_PS: {
