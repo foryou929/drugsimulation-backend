@@ -6,7 +6,15 @@ exports.PKS = {
     create: async (req, res) => {
         try {
             await PKS.create(req.body);
-            res.json({ message: 'success' });
+            res.json({ message: 'simulation_save_success' });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+    readAll: async (req, res) => {
+        try {
+            const result = await PKS.find();
+            res.json({ result });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -15,7 +23,7 @@ exports.PKS = {
         try {
             const _id = req.params;
             const result = await PKS.findOne({ _id });
-            res.json({ message: 'success', result });
+            res.json({ result });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -31,7 +39,7 @@ exports.PKS = {
         try {
             const _id = req.params;
             await PKS.deleteOne({ _id });
-            res.json({ message: 'success' });
+            res.json({ message: 'simulation_delete_success' });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -42,7 +50,15 @@ exports.AES = {
     create: async (req, res) => {
         try {
             await AES.create(req.body);
-            res.json({ message: 'success' });
+            res.json({ message: 'simulation_save_success' });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+    readAll: async (req, res) => {
+        try {
+            const result = await AES.find();
+            res.json({ result });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -51,7 +67,7 @@ exports.AES = {
         try {
             const _id = req.params;
             const result = await AES.findOne({ _id });
-            res.json({ message: 'success', result });
+            res.json({ result });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -67,7 +83,7 @@ exports.AES = {
         try {
             const _id = req.params;
             await AES.deleteOne({ _id });
-            res.json({ message: 'success' });
+            res.json({ message: 'simulation_delete_success' });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
