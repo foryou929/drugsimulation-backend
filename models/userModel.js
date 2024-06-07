@@ -15,8 +15,8 @@ const UserSchema = Schema(
             type: String,
             required: true,
         },
-        paid: {
-            type: Boolean,
+        current_pricing_plan: {
+            type: Number,
             default: false,
         },
         avatar: {
